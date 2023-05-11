@@ -1,9 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 import img from "../../assets/assets/images/login/login.svg";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../provider/AuthProvider";
 const Singup = () => {
+  const { createUser } = useContext(AuthContext);
+
   const handleSignup = (e) => {
     e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    createUser(email, password)
+      .then((result) => {
+        const newUser = result.user;
+        console.log(newUser);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   return (
     <>
